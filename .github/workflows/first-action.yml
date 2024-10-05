@@ -2,21 +2,21 @@ name: Check Learn Project
 on: push
 jobs:
   lint:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get Code
-          uses: actions/checkout@v3
-  
-        - name: Install Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '18'  # Set your Node.js version
-  
-        - name: Install dependencies
-          run: npm ci
-  
-        - name: Run Lint
-          run: npm run lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Set your Node.js version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint
+        run: npm run lint
   test:
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +31,7 @@ jobs:
       - name: Run tests
         run: npm test
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -43,5 +44,5 @@ jobs:
         run: npm ci
       - name: Run build
         run: |
-            npm run build
-            echo "Successful deploy"
+          npm run build
+          echo "Successful deploy"
